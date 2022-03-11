@@ -1,6 +1,6 @@
 ﻿class PoutineDAO{
   constructor(){
-    this.URL = 'https://54.205.182.138/'
+    this.URL = 'http://54.205.182.138/'
   }
   lister(action){
     fetch(this.URL + 'lister.php')
