@@ -1,13 +1,14 @@
 ﻿class PoutineDAO{
   constructor(){
-    this.URL = 'http://ec2-54-205-182-138.compute-1.amazonaws.com/'
+    this.URL = 'http://54.205.182.138/'
   }
   lister(action){
     fetch(this.URL + 'lister.php')
-      .then(response => response.json())
+      .then(response => response.text())
       .then(data =>
         {
           console.log(data);
+          data = data == null ? null : JSON.parse(data);
           let listePoutine = [];
           for(let position in data){
             let poutine = new Poutine(data[position].nom,
@@ -47,7 +48,7 @@
         headers: {
           'Content-Type':'application/x-www-form-urlencoded'
         },
-        body: "poutinejson="+JSON.stringify(poutine),
+        body: JSON.stringify(poutine),
       })
       .then(response => response.text())
       .then(data =>
@@ -55,6 +56,29 @@
           console.log('Détail:', data);
           action();
         });
+  }
+
+  modifier(id, action){
+    fetch(this.URL + 'modifier.php' + '?id=' + id,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/x-www-form-urlencoded'
+        },
+        body: JSON.stringify(poutine),
+      })
+    .then(response => response.text())
+    .then(data =>
+      {
+        console.log(data);
+        let poutine = new Poutine(data.nom,
+                                  data.ingredients,
+                                  data.prix,
+                                  data.tailles,
+                                  data.description,
+                                  data.id);
+        action(poutine);
+      });
   }
 
 }
