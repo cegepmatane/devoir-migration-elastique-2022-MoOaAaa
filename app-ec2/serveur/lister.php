@@ -4,11 +4,7 @@ header('Access-Control-Allow-Methods: GET, POST');
 header("Access-Control-Allow-Headers: X-Requested-With");
 header('Content-Type: application/json; charset=utf-8');
 
-$listePoutineJson = file_get_contents("liste-poutine.json");
+require_once("PoutineDAO.php");
 
-if(strlen($listePoutineJson) > 0){
-  $listePoutine = json_decode($listePoutineJson);
-  echo json_encode($listePoutine);
-}else{
-  echo json_encode([]);
-}
+$listePoutine = PoutineDAO::lister();
+echo json_encode($listePoutine);

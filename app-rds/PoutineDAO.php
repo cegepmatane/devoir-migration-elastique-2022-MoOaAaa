@@ -9,9 +9,9 @@ class Accesseur
   public static function initialiser()
   {
     $base = 'app-poutine';
-    $hote = 'app-poutine.cqbi9evth5qj.us-east-1.rds.amazonaws.com';
-    $usager = 'Lheidet';
-    $motDePasse = 'WBuLEorkf0UgdR8ooFxk26yDDUVtHQ';
+    $hote = 'app-poutine.chjj4ue1hyos.us-east-1.rds.amazonaws.com';
+    $usager = 'hugues';
+    $motDePasse = 'cegep2022';
     $nomDeSourceDeDonnees = 'mysql:dbname=' . $base . ';host=' . $hote;
     PoutineDAO::$baseDeDonnees = new PDO($nomDeSourceDeDonnees, $usager, $motDePasse);
     PoutineDAO::$baseDeDonnees->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -64,13 +64,13 @@ class PoutineDAO extends Accesseur implements PoutineSQL
     PoutineDAO::initialiser();
 
     $demandeModifierPoutine = PoutineDAO::$baseDeDonnees->prepare(PoutineDAO::SQL_MODIFIER);
-    $demandeModifierPoutine->bindParam(':id', $poutine->id, PDO::PARAM_INT);
     $demandeModifierPoutine->bindValue(':nom', $poutine->nom, PDO::PARAM_STR);
     $demandeModifierPoutine->bindValue(':ingredients', $poutine->ingredients, PDO::PARAM_STR);
     $demandeModifierPoutine->bindValue(':prix', $poutine->prix, PDO::PARAM_STR);
     $demandeModifierPoutine->bindValue(':tailles', $poutine->tailles, PDO::PARAM_STR);
     $demandeModifierPoutine->bindValue(':description', $poutine->description, PDO::PARAM_STR);
+    $demandeModifierPoutine->bindValue(':id', $poutine->id, PDO::PARAM_INT);
     $demandeModifierPoutine->execute();
-    return PoutineDAO::chercherParId($poutine->id);
+    return PoutineDAO::$baseDeDonnees->lastInsertId();
   }
 }

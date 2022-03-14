@@ -4,11 +4,11 @@ class Poutine implements JsonSerializable
   public static $filtres =
     array(
       'id' => FILTER_VALIDATE_INT,
-      'nom' => FILTER_SANITIZE_STRING,
-      'ingredients' => FILTER_SANITIZE_STRING,
-      'prix' => FILTER_SANITIZE_STRING,
-      'tailles' => FILTER_SANITIZE_STRING,
-      'description' => FILTER_SANITIZE_STRING
+      'nom' => FILTER_SANITIZE_ENCODED,
+      'ingredients' => FILTER_SANITIZE_ENCODED,
+      'prix' => FILTER_SANITIZE_ENCODED,
+      'tailles' => FILTER_SANITIZE_ENCODED,
+      'description' => FILTER_SANITIZE_ENCODED
     );
 
   protected $id;

@@ -1,6 +1,6 @@
 ﻿class PoutineDAO{
   constructor(){
-    this.URL = 'http://ec2-54-205-182-138.compute-1.amazonaws.com/'
+    this.URL = 'http://35.168.213.176/'
   }
   lister(action){
     fetch(this.URL + 'lister.php')
@@ -47,7 +47,7 @@
         headers: {
           'Content-Type':'application/x-www-form-urlencoded'
         },
-        body: "poutinejson="+JSON.stringify(poutine),
+        body: JSON.stringify(poutine),
       })
       .then(response => response.text())
       .then(data =>
@@ -56,5 +56,21 @@
           action();
         });
   }
+    modifier(poutine, action) {
+        fetch(this.URL + 'modifier.php',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/x-www-form-urlencoded'
+                },
+                body: JSON.stringify(poutine),
+            })
+            .then(response => response.text())
+            .then(data =>
+            {
+                console.log('Détail:', data);
+                action();
+            });
+    }
 
 }

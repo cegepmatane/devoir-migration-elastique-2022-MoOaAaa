@@ -15,6 +15,12 @@
     document.getElementById("poutine-prix").innerHTML = this.poutine.prix;
     document.getElementById("poutine-tailles").innerHTML = this.poutine.tailles;
     document.getElementById("poutine-description").innerHTML = this.poutine.description;
+    document.getElementById("modifier-poutine").innerHTML.replace("{Poutine.id}", this.poutine.id);
+    console.log(this.poutine.id);
+    let HTMLReplacement = document.getElementById("modifier-poutine").innerHTML;
+    HTMLReplacement = HTMLReplacement.replace("{Poutine.id}", this.poutine.id);
+    document.getElementById("modifier-poutine").innerHTML = HTMLReplacement;
+
   }
 
 }
